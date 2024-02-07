@@ -1,30 +1,40 @@
 {% load static %} 
-
-<nav class="bg-blue-900 flex items-center justify-between flex-wrap bg-white p-2 px-10">
-    <div class="flex items-center flex-shrink-0 text-white mr-6">
-        <img class="w-10" src="{% static './img/logo.png' %}" alt='Logo'/>
-        <span class="font-semibold text-xl tracking-tight text-white"><a href="{% url 'home' %}">Boipustok Library</a></span>
-    </div>
-    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto px-10">
-            <div class="text-md lg:flex-grow">
-                <a href="" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-red-500 hover:font-black mr-4">
-                    Home
-                </a>
-                <a href="" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-red-500 hover:font-black mr-4">
-                    Available Books
-                </a>
-                <a href="" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-red-500 hover:font-black mr-4">
-                    Contact
-                </a>
-                <a href="" class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-red-500 hover:font-black mr-4">
-                    About
-                </a>
-            </div>
-            <div>
-                <a href="" class="mr-2 inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-white hover:bg-green-700 mt-4 lg:mt-0">Login</a>
-            </div>
-            <div>
-                <a href="" class="inline-block font-medium text-sm px-4 py-2 leading-none bg-blue-900 rounded text-white border-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 lg:mt-0">Register</a>
-            </div>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <img class="" style="width: 50px;" src="{% static './img/logo.png' %}" alt='Logo'/>
+        <a class="navbar-brand" href="{% url 'home' %}">Boipustok Library</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Available Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">About</a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Deposite</a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" role="search">
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-success me-2" href="{% url 'profile' %}">Profile</a>
+                <a class="btn btn-danger me-2" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="btn btn-primary me-2" href="{% url 'signup' %}">Signup</a>
+                <a class="btn btn-secondary me-2" href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </form>
+        </div>
     </div>
 </nav>

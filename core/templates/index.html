@@ -1,7 +1,36 @@
-{% extends 'base.html' %} 
-{% load static %} 
+{% extends 'base.html' %}
+{% load static %}
 
-{% block head_title %}Boipustok Library{% endblock %} 
+{% block head_title %}Boipustok Library{% endblock %}
 {% block content %}
-<h1 class="text-center">Welcome to home</h1>
+
+<div>
+  <h4 class="text-center my-3">Categories</h4>
+  <div class="d-flex justify-content-center flex-wrap gap-2">
+    {% for category in categories %}
+    <a class="btn btn-warning fw-bold text-decoration-none text-dark" href="{% url 'category' category.slug %}">{{category.category_name}}</a>
+    {% endfor %}
+  </div>
+</div>
+<div>
+  <div class="conatiner mx-2">
+    <h4 class="mt-4 text-center">Total books found: {{data|length}}</h4>
+    <div class="row justify-content-center my-5 gap-2">
+      {% for book in data %}
+      <div class="col-lg-3 col-md-6 col-8"
+        style="min-width: 400px; max-width:400px;min-height: 500px;max-height: 500px;">
+        <div class="card">
+          <div class="card-body">
+            <img src="{{book.book_image.url}}" class="card-img-top" style="max-width: 380px; max-height: 180px;" alt="">
+            <h5 class="card-title"><a class="text-decoration-none text-dark" href="">{{book.book_title}}</a></h5>
+            <p class="card-text">{{book.book_description | truncatewords:10}}</p>
+            <p class="card-text">Borrow Price: {{book.price}}</p>
+            <a class="btn btn-primary" href="{% url 'details' id=book.id %}">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 {% endblock %}
