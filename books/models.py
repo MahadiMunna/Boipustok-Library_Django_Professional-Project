@@ -1,4 +1,6 @@
 from django.db import models
+from users.models import UserAccount
+from transactions.models import Transaction
 
 # Create your models here.
 class BookCategory(models.Model):
@@ -17,4 +19,13 @@ class BookModel(models.Model):
 
     def __str__(self) -> str:
         return self.book_title
+
+class BookBorrowerModel(models.Model):
+    borrower = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    book = models.ForeignKey(BookModel, on_delete = models.CASCADE)
+
+    def __str__(self) -> str:
+        return f"{self.book.book_title} borrow by {self.borrower.user.first_name}"
+
 

@@ -8,7 +8,41 @@
     {% endfor %}
 {% endif %}
 <h3 class="text-center text-primary my-3">Welcome to your profile {{request.user.first_name}} {{request.user.last_name}} </h3>
+<h4 class="text-primary text-bold me-2 text-center">Your current balance: {{request.user.account.balance}}</h4>
 <div class="container mx-auto">
     <p class="text-center"><a class="btn btn-outline-success" href="{% url 'edit_profile' %}">Edit Profile</a></p>
+</div>
+<div class="container">
+    <h1 class="my-3 text-center fw-bold">Your Book transaction history</h1>
+    {% if data %}
+    <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Transaction Type</th>
+            <th scope="col">Transaction Time</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for transaction in data %}
+          <tr>
+            <td><img style="width: 30px; height: 30px;" src="{{transaction.book.book_image.url}}" alt=""> {{transaction.book.book_title}}</td>
+            <td>{{transaction.book.price}}</td>
+            <td>{{transaction.transaction.transaction_type}}</td>
+            <td>{{transaction.transaction.timestamp}}</td>
+            {% if transaction.transaction.transaction_type == "Borrow"  %}
+            <td><a class="btn btn-success" href="{% url 'return' transaction.id %}"> Return </a></td>
+            {% else %}
+            <td><button class="btn btn-secondary" disabled> Return </button></td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+        {% else %}
+        <h3 class="text-center">You don't have borrowed any books!</h3>
+        {% endif %}
+        </tbody>
+      </table>
 </div>
 {% endblock %}

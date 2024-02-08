@@ -10,5 +10,6 @@ urlpatterns = [
     path('category/<slug:category_slug>/',home, name='category'),
     path('books/',include("books.urls")),
     path('users/',include("users.urls")),
+    path('transactions/',include("transactions.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

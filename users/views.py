@@ -6,6 +6,7 @@ from django.contrib.auth.views import LoginView
 from django.views.generic.base import TemplateView
 from django.contrib.auth import login,logout
 from django.urls import reverse_lazy
+from books.models import BookBorrowerModel
 
 
 # Create your views here.
@@ -47,8 +48,12 @@ class UserLogoutView(View):
 
 class Profile(TemplateView):
     template_name = 'profile.html'
-    def get(self, request):
-        return render(request, self.template_name, None)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['data'] = BookBorrowerModel.objects.filter(borrower = self.request.user.account)
+        return context
     
 class UserAccountUpdateView(View):
     template_name = 'form.html'
