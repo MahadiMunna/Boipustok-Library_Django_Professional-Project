@@ -27,5 +27,13 @@ class BookBorrowerModel(models.Model):
 
     def __str__(self) -> str:
         return f"{self.book.book_title} borrow by {self.borrower.user.first_name}"
+    
+class Comment(models.Model):
+    post = models.ForeignKey(BookModel, on_delete=models.CASCADE, related_name='comments')
+    name = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    comment = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Comments by {self.name}"
 

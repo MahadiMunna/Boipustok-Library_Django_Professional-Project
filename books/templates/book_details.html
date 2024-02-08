@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block head_title %}Boipustok Library - Book Details{% endblock %}
 {% block content %}
 
@@ -16,4 +16,38 @@
     {% endif %}
   </div>
 </div>
+<div>
+
+  <div class="container mx-auto my-3">
+    <div class="card m-2">
+      {% if comments %}
+      <h4 class="text-center mt-2">Total number of reviews : {{comments | length}}</h4>
+      <div class="card-body">
+        {% for comment in comments %}
+        <div class="border rounded p-2 mb-2">
+          <p><b>{{comment.name}}</b> {{comment.created_on}}</p>
+          <p>{{comment.comment}}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h4 class="text-center">No reviews on this book!</h4>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card m-2">
+      <div class="card-body">
+        {% if comment_form %}
+        <form action="" method="post">
+          {% csrf_token %}
+          {{comment_form | crispy}}
+  
+          <button class="btn btn-success">Add Comment</button>
+        </form>
+        
+        {% else %}
+        <h4 class="text-center">You can review after borrowing the book!</h4>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
