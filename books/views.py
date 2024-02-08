@@ -29,7 +29,7 @@ class DetailBookView(DetailView):
         reviewer = self.request.user.account
 
         borrower = models.BookBorrowerModel.objects.filter(book=post).filter(borrower=reviewer)
-        a=1
+
         if not borrower:
             context['comments'] = comments
             context['comment_form'] = ''
