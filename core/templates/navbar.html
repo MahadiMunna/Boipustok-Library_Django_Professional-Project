@@ -29,7 +29,7 @@
             </ul>
             <form class="d-flex align-items-center" role="search">
                 {% if request.user.is_authenticated %}
-                <span class="text-secondary text-bold me-2">Balance: {{request.user.account.balance}}</span>
+                <span class="text-secondary fw-bold me-2">Balance: {{request.user.account.balance}}</span>
                 <a class="btn btn-success me-2" href="{% url 'profile' %}">Profile</a>
                 <a class="btn btn-danger me-2" href="{% url 'logout' %}">Logout</a>
                 {% else %}

@@ -3,14 +3,18 @@
 
 {% load crispy_forms_tags %}
 
-<h1 class="text-center my-5">Deposit Now!</h1>
-<div class="mx-auto mb-5" style="max-width: 600px;">
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form | crispy}}
-        
-        <button class="btn btn-success">Submit</button>
-    </form>
+<div class="container mx-auto p-5 border border-3 rounded mt-5">
+    <h1 class="text-center text-success my-5">Deposit Money Now</h1>
+    <p class="text-center"><small class="alert alert-danger">Deposit amount must be greater than 100$ and less than
+            100000$</small></p>
+    <div class="mx-auto my-5" style="max-width: 600px;">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form | crispy}}
+
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
 </div>
 
 {% endblock %}

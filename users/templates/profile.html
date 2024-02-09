@@ -3,46 +3,57 @@
 
 {% block content %}
 {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-block alert-success"> <ul class="m-0"> <li>{{message}}</li> </ul> </div>
-    {% endfor %}
-{% endif %}
-<h3 class="text-center text-primary my-3">Welcome to your profile {{request.user.first_name}} {{request.user.last_name}} </h3>
-<h4 class="text-primary text-bold me-2 text-center">Your current balance: {{request.user.account.balance}}</h4>
-<div class="container mx-auto">
-    <p class="text-center"><a class="btn btn-outline-success" href="{% url 'edit_profile' %}">Edit Profile</a></p>
+{% for message in messages %}
+<div class="alert alert-block alert-success">
+  <ul class="m-0">
+    <li>{{message}}</li>
+  </ul>
 </div>
-<div class="container">
-    <h1 class="my-3 text-center fw-bold">Your Book transaction history</h1>
+{% endfor %}
+{% endif %}
+<div class="container mx-auto row justify-content-center">
+  <div class="text-center rounded rounded-4 shadow-lg p-3 fw-bold mt-4" style="max-width: 500px;" >
+    <span class="my-3 fw-semibold fs-5">Hello,</span><br>
+    <span class="text-primary fs-2">{{request.user.first_name}} {{request.user.last_name}}</span><br>
+    <span class="fw-bold me-2 fs-5">Your current balance: </span><br>
+    <span class="text-danger fs-4">{{request.user.account.balance}}$</span> <br>
+    <a class="btn btn-primary" href="{% url 'edit_profile' %}">Edit Profile</a>
+  </div>
+
+  <div class="container mx-auto text-center">
+    <p style="margin: 50px 0px 20px 0px;" class="text-center fw-bold p-3 rounded fs-5"><span class="alert alert-danger">Your Book transaction history</span>
+    </p>
     {% if data %}
-    <table class="table table-striped">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">Book Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Transaction Type</th>
-            <th scope="col">Transaction Time</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
+    <table style="margin-bottom: 200px;" class="table table-striped border border-3 shadow">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Book Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Transaction Type</th>
+          <th scope="col">Transaction Time</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for transaction in data %}
-          <tr>
-            <td><img style="width: 30px; height: 30px;" src="{{transaction.book.book_image.url}}" alt=""> {{transaction.book.book_title}}</td>
-            <td>{{transaction.book.price}}</td>
-            <td>{{transaction.transaction.transaction_type}}</td>
-            <td>{{transaction.transaction.timestamp}}</td>
-            {% if transaction.transaction.transaction_type == "Borrow"  %}
-            <td><a class="btn btn-success" href="{% url 'return' transaction.id %}"> Return </a></td>
-            {% else %}
-            <td><button class="btn btn-secondary" disabled> Return </button></td>
-            {% endif %}
-          </tr>
+        <tr>
+          <td><img style="width: 30px; height: 30px;" src="{{transaction.book.book_image.url}}" alt="">
+            {{transaction.book.book_title}}</td>
+          <td>{{transaction.book.price}}</td>
+          <td>{{transaction.transaction.transaction_type}}</td>
+          <td>{{transaction.transaction.timestamp}}</td>
+          {% if transaction.transaction.transaction_type == "Borrow" %}
+          <td><a class="btn btn-success" href="{% url 'return' transaction.id %}"> Return </a></td>
+          {% else %}
+          <td><button class="btn btn-secondary" disabled> Return </button></td>
+          {% endif %}
+        </tr>
         {% endfor %}
         {% else %}
-        <h3 class="text-center">You don't have borrowed any books!</h3>
+        <h4 class="text-center text-secondary" style="margin-top: 100px;">You don't have borrowed any books!</h4>
         {% endif %}
-        </tbody>
-      </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}

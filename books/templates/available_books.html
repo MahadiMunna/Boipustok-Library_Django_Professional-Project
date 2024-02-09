@@ -17,9 +17,9 @@
   </div>
 </div>
 <div>
-  <div class="conatiner mx-2">
-    <h4 class="mt-4 text-center">Total books available - {{data|length}}</h4>
-    <div class="row justify-content-center my-5 gap-2">
+  <div class="conatiner mx-auto" style="margin-bottom: 200px;">
+    <h4 class="mt-4 text-center text-secondary">Total books available - {{data|length}}</h4>
+    <div class="mx-auto row justify-content-center my-5 gap-2">
       {% for book in data %}
       <div class="card mb-3 shadow" style="max-width: 540px; height: fit-content;">
         <div class="row g-0">

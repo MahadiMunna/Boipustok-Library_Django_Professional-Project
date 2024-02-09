@@ -17,7 +17,7 @@ class DepositForm(forms.ModelForm):
             )
         elif amount > max_deposit_amount:
             raise forms.ValidationError(
-                f'You are able to deposit maximum {min_deposit_amount} $'
+                f'You are able to deposit maximum {max_deposit_amount} $'
             )
 
         return amount
