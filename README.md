@@ -10,12 +10,12 @@ Transaction app used here to keep record of user transaction. When user deposit 
 # Core
 This app is the core of this project. All the basic templates rendered from here. Contact method implemented here. User can give feedback to the developer.
 # Used Technologies
-    <ul>
-        <li>Django</li>
-        <li>Bootstrap</li>
-        <li>Crispy</li>
-        <li>db.sqlite3</li>
-        <li>smtp.EmailBackend</li>
-        <li>host: on-render</li>
-    </ul>
+1. Django
+2. Bootstrap
+3. Crispy Form
+4. db.sqlite3
+5. smtp.EmailBackend
+6. host: on-render
+
+# live: https://boipustok-library.onrender.com/
 
