@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head_title %}Books - Boipustok Library{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- categories  -->
+
+<div>
+  <h4 class="text-center my-3 text-primary">Book Categories</h4>
+  <div class="container d-flex justify-content-center flex-wrap gap-2">
+    {% for category in categories %}
+    <a style="width: 150px;" class="btn btn-warning fw-bold text-decoration-none text-dark"
+      href="{% url 'category_book' category.slug %}">{{category.category_name}}</a>
+    {% endfor %}
+  </div>
+</div>
+<div>
+  <div class="conatiner mx-2">
+    <h4 class="mt-4 text-center">Total books available - {{data|length}}</h4>
+    <div class="row justify-content-center my-5 gap-2">
+      {% for book in data %}
+      <div class="card mb-3 shadow" style="max-width: 540px; height: fit-content;">
+        <div class="row g-0">
+          <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img class="card-img" src="{{book.book_image.url}}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h6 class="card-title fw-bold">{{book.book_title}}</h6>
+              <p class="card-text text-secondary">{{book.book_description | truncatewords:9}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="fw-bold bg-secondary p-2 text-white rounded rounded-2">Borrow Price:
+                  {{book.price}}$</small>
+                <a class="btn btn-primary" href="{% url 'details' id=book.id %}">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

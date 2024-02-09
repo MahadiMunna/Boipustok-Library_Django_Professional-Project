@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.template.loader import render_to_string
-from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Transaction
@@ -21,7 +21,6 @@ def send_transaction_email(user, email_to, amount, subject, template):
         send_email.send()
 
 def deposit(request):
-    # transaction, create = Transaction.objects.get_or_create()
     deposit_form = DepositForm(request.POST)
     if request.method == 'POST':
         if deposit_form.is_valid():
@@ -83,5 +82,5 @@ def return_books(request, id):
     transaction.timestamp = datetime.now()
     transaction.save()
     messages.success(request,f'You have succesfully return \"{bookBorrowerModel.book.book_title}\" and {"{:,.2f}".format(float(price))}$ refunded to your account')
-    send_transaction_email(request.user, request.user.email, price, "Retur Book Message", "return_mail.html")
+    send_transaction_email(request.user, request.user.email, price, "Return Book Message", "return_mail.html")
     return redirect('profile')

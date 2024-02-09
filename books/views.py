@@ -1,9 +1,18 @@
 from django.shortcuts import render, redirect
 from . import models
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from . import forms
+from .models import BookModel, BookCategory
 
 # Create your views here.
+def availableBooks(request, category_slug=None):
+    data = BookModel.objects.all()
+    if category_slug is not None:
+        category = BookCategory.objects.get(slug=category_slug)
+        data = BookModel.objects.filter(book_category=category)
+    categories = BookCategory.objects.all()
+    return render(request, 'available_books.html',{'data':data, 'categories':categories})
+
 class DetailBookView(DetailView):
     model = models.BookModel
     pk_url_kwarg = 'id'
@@ -26,7 +35,10 @@ class DetailBookView(DetailView):
         post = self.object
         comments = post.comments.all()
         comment_form = forms.CommentForm()
-        reviewer = self.request.user.account
+        if self.request.user.is_authenticated:
+            reviewer = self.request.user.account
+        else:
+            reviewer = None
 
         borrower = models.BookBorrowerModel.objects.filter(book=post).filter(borrower=reviewer)
 

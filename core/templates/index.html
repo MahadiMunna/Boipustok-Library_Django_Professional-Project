@@ -1,36 +1,110 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block head_title %}Boipustok Library{% endblock %}
-{% block content %}
 
-<div>
-  <h4 class="text-center my-3">Categories</h4>
-  <div class="d-flex justify-content-center flex-wrap gap-2">
-    {% for category in categories %}
-    <a class="btn btn-warning fw-bold text-decoration-none text-dark" href="{% url 'category' category.slug %}">{{category.category_name}}</a>
-    {% endfor %}
+{% block content %}
+{% load static %}
+<!-- banner  -->
+<div class="banner d-flex justify-content-center align-items-center flex-column flex-md-row"
+  style="background-image:linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(249,159,85,0.13489145658263302) 100%), url('{% static 'img/banner.jpg' %}');">
+  <div class="w-50">
+    <img class="img-fluid rounded rounded-4" src="{% static 'img/banner image.gif' %}" alt="">
+  </div>
+  <div class="w-50">
+    <h1 class="text-primary fw-bold text-center text-md-start">Welcome to Boipustok Library</h1>
+    <p class="fw-bold text-center text-md-start">Discover, Borrow, Read: Boipustok Library Online! <br>
+      Unlock the Gateway to Endless Stories. <br> Unleash Your Imagination with Every Borrow.
+    </p>
+    <p class="fw-bold text-center text-md-start"><a class="btn btn-outline-primary" href="{% url 'signup' %}">Signup
+        Now!</a></p>
   </div>
 </div>
-<div>
-  <div class="conatiner mx-2">
-    <h4 class="mt-4 text-center">Total books found: {{data|length}}</h4>
-    <div class="row justify-content-center my-5 gap-2">
-      {% for book in data %}
-      <div class="col-lg-3 col-md-6 col-8"
-        style="min-width: 400px; max-width:400px;min-height: 500px;max-height: 500px;">
-        <div class="card">
-          <div class="card-body">
-            <img src="{{book.book_image.url}}" class="card-img-top" style="max-width: 380px; max-height: 180px;" alt="">
-            <h5 class="card-title"><a class="text-decoration-none text-dark" href="">{{book.book_title}}</a></h5>
-            <p class="card-text">{{book.book_description | truncatewords:10}}</p>
-            <p class="card-text">Borrow Price: {{book.price}}</p>
-            <a class="btn btn-primary" href="{% url 'details' id=book.id %}">View Details</a>
-          </div>
-        </div>
+
+<!-- books with categories  -->
+<h2 class="text-center fw-bold mt-4">Find different categories books here</h2>
+<div class="mx-2 p-3 d-flex flex-column flex-md-row ">
+  <!-- category  -->
+  <div class="row justify-content-center">
+    <div class="m-3" style="width: 160px;">
+      <h4 class="text-center my-3 text-primary">Categories</h4>
+      <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+        {% for category in categories %}
+        <a style="width: 150px;" class="btn btn-warning fw-bold text-decoration-none text-dark"
+          href="{% url 'category' category.slug %}">{{category.category_name}}</a>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
+
+  <!-- books  -->
+  <div class="d-flex justify-content-center">
+    <div class="mx-2">
+      <h4 class="mt-4 text-bg-primary text-center border border-2 p-2 rounded rounded-2">Available books</h4>
+      <div class="row justify-content-center my-5 gap-2">
+        {% for book in data|slice:":6" %}
+        <div class="card mb-3 shadow" style="max-width: 540px; height: fit-content;">
+          <div class="row g-0">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+              <img class="card-img" src="{{book.book_image.url}}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h6 class="card-title">{{book.book_title}}</h6>
+                <p class="card-text">{{book.book_description | truncatewords:9}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="fw-bold bg-secondary p-2 text-white rounded rounded-2">Borrow Price:
+                    {{book.price}}$</small>
+                  <a class="btn btn-primary" href="{% url 'details' id=book.id %}">View Details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <p class="text-center"><a class="btn btn-dark" href="{% url 'books' %}">View All Books</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- instruction section  -->
+<h2 class="text-center fw-bold text-primary my-4">How to get book?</h2>
+<div class="container mx-auto row justify-content-center gap-5 mb-5">
+
+    <div class="h-100 rounded shadow-lg p-3 h-100" style="width: 18rem;">
+      <p class="text-center"><img class="card-img-top w-50" src="{% static 'img/Deposit.svg' %}" alt="Card image cap"></p>
+      <div class="card-body">
+        <h5 class="card-title text-center fw-bold">Deposit Money</h5>
+        <p class="card-text text-center">If you want to borrow book, first you have to login. Then you will find deposit money option and deposit money to your account.</p>
+        {% if request.user.is_authenticated %}
+        <p class="text-center"><a class="btn btn-outline-dark" href="{% url 'deposit' %}">Deposit</a></p>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <div class="rounded shadow-lg p-3 h-100" style="width: 18rem;">
+      <p class="text-center"><img class="card-img-top w-50" src="{% static 'img/Borrow Book.svg' %}" alt="Card image cap"></p>
+      <div class="card-body">
+        <h5 class="card-title text-center fw-bold">Borrow Book</h5>
+        <p class="card-text text-center">After login you will able to borrow book if you have enough deposit money in your account. Else deposit first then borrow.</p>
+        {% if request.user.is_authenticated %}
+        <p class="text-center"><a class="btn btn-outline-dark" href="{% url 'books' %}">Borrow</a></p>
+        {% endif %}
+      </div>
+    </div>
+
+
+    <div class="rounded shadow-lg p-3 h-100" style="width: 18rem;">
+      <p class="text-center"><img class="card-img-top w-50" src="{% static 'img/Return Book.svg' %}" alt="Card image cap"></p>
+      <div class="card-body">
+        <h5 class="card-title text-center fw-bold">Return Book</h5>
+        <p class="card-text text-center">After borrowing book you will find book transaction in your profile and after that you will able to retun book. The money will be refunded.</p>
+        {% if request.user.is_authenticated %}
+        <p class="text-center"><a class="btn btn-outline-dark" href="{% url 'profile' %}">Return</a></p>
+        {% endif %}
+      </div>
+    </div>
+
 </div>
 {% endblock %}

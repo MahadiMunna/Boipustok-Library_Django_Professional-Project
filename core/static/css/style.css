@@ -1,0 +1,10 @@
+.banner{
+    background-repeat: no-repeat; background-size:cover;
+    background-position: center;
+    height: 70vh;
+}
+.card-img {
+    width: 100%;
+    height: 10vw;
+    object-fit: cover;
+}

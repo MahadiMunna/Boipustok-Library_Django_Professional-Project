@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('category/<slug:category_slug>/',home, name='category'),
+    path('',include("core.urls")),
     path('books/',include("books.urls")),
     path('users/',include("users.urls")),
     path('transactions/',include("transactions.urls")),

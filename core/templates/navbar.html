@@ -12,19 +12,20 @@
                     <a class="nav-link" aria-current="page" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Available Books</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">About</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'books' %}">Available Books</a>
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{% url 'deposit' %}">Deposite</a>
                 </li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'contact' %}">Contact</a>
+                </li>
+                
             </ul>
             <form class="d-flex align-items-center" role="search">
                 {% if request.user.is_authenticated %}
