@@ -6,9 +6,9 @@
 {% load static %}
 {% if messages %}
     {% for message in messages %}
-    <div class="container mx-auto mb-3" style="max-width: fit-content;"><small class="text-white text-center mt-2 bg-success p-2 rounded">{{message}}</small></div>
+    <div class="alert alert-block alert-success"> <ul class="m-0"> <li>{{message}}</li> </ul> </div>
     {% endfor %}
-    {% endif %}
+{% endif %}
 
 <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center my-3">
     <img style="width: 350px;" class="rounded rounded-5 me-md-5" src="{% static 'img/Munna.jpg' %}" alt="">
@@ -17,14 +17,14 @@
         <h5 class="text-sm-center text-md-start fw-bold text-secondary">Hello, I'm Mahadi Hasan Munna. Here I develop this web
             application with django. If you have any feedback about this application you can send mail now from below!
         </h5>
-        <p class="text-sm-center text-md-start"><a  class="btn btn-primary mt-3" href="https://mahadi-hasan-munna.web.app/">Visit My Portfolio</a></p>
+        <p class="text-sm-center text-md-start"><a target="_blank" class="btn btn-primary mt-3" href="https://mahadi-hasan-munna.web.app/">Visit My Portfolio</a></p>
     </div>
 
 </div>
 {% load crispy_forms_tags %}
 <h2 class="text-success text-center my-5">Send your feedback!</h2>
 <div class="mx-auto mb-5" style="max-width: 600px;">
-    <form action="" method="post">
+    <form style="margin-bottom: 300px;" action="" method="post">
         {% csrf_token %}
         {{form | crispy}}
         
