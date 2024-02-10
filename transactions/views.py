@@ -52,7 +52,8 @@ def borrow_books(request, id):
 
     if borrower.balance<price:
         messages.warning(request, "You don't have enough money for borrow this book. Deposit more money!")
-        return render(request, 'profile.html')
+        data = BookBorrowerModel.objects.filter(borrower = request.user.account)
+        return render(request, 'profile.html', {'data':data})
     else:
         borrower.balance -= price
         borrower.save()

@@ -1,16 +1,9 @@
 {% extends 'base.html' %}
+{% block head_title %}Profile - Boipustok Library{% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-block alert-success">
-  <ul class="m-0">
-    <li>{{message}}</li>
-  </ul>
-</div>
-{% endfor %}
-{% endif %}
+
 <div class="container mx-auto row justify-content-center">
   <div class="text-center rounded rounded-4 shadow-lg p-3 fw-bold mt-4" style="max-width: 500px;" >
     <span class="my-3 fw-semibold fs-5">Hello,</span><br>
@@ -25,27 +18,31 @@
     </p>
     {% if data %}
     <table style="margin-bottom: 200px;" class="table table-striped border border-3 shadow">
-      <thead class="thead-dark">
+      <thead>
         <tr>
-          <th scope="col">Book Name</th>
+          <th scope="col">Book</th>
           <th scope="col">Price</th>
-          <th scope="col">Transaction Type</th>
           <th scope="col">Transaction Time</th>
+          <th scope="col">Transaction Type</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
         {% for transaction in data %}
         <tr>
-          <td><img style="width: 30px; height: 30px;" src="{{transaction.book.book_image.url}}" alt="">
-            {{transaction.book.book_title}}</td>
-          <td>{{transaction.book.price}}</td>
-          <td>{{transaction.transaction.transaction_type}}</td>
-          <td>{{transaction.transaction.timestamp}}</td>
+          <td>
+            <img style="width: 30px; height: 30px;" src="{{transaction.book.book_image.url}}" alt="">
+            <a class="btn btn-warning fw-bold p-1" href="{% url 'details' id=transaction.book.id %}">{{transaction.book.book_title}}</a>
+          </td>
+          <td class="fw-bold">{{transaction.book.price}}$</td>
+          
+          <td class="text-secondary fw-bold">{{transaction.transaction.timestamp}}</td>
           {% if transaction.transaction.transaction_type == "Borrow" %}
-          <td><a class="btn btn-success" href="{% url 'return' transaction.id %}"> Return </a></td>
+          <td><small class="alert alert-success p-1 rounded rounded-5 fw-bold">{{transaction.transaction.transaction_type}}</small></td>
+          <td><a class="btn btn-success fw-bold p-1" href="{% url 'return' transaction.id %}"> Return </a></td>
           {% else %}
-          <td><button class="btn btn-secondary" disabled> Return </button></td>
+          <td><small class="alert alert-danger p-1 rounded rounded-5 fw-bold">{{transaction.transaction.transaction_type}}</small></td>
+          <td><button class="btn btn-secondary p-1" disabled> Return </button></td>
           {% endif %}
         </tr>
         {% endfor %}

@@ -4,11 +4,6 @@
 
 {% block content %}
 {% load static %}
-{% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-block alert-success"> <ul class="m-0"> <li>{{message}}</li> </ul> </div>
-    {% endfor %}
-{% endif %}
 <!-- banner  -->
 <div class="banner d-flex justify-content-center align-items-center flex-column flex-md-row"
   style="background-image:linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 63%, rgba(249,159,85,0.13489145658263302) 100%), url('{% static 'img/banner.jpg' %}');">
@@ -20,8 +15,10 @@
     <p class="fw-bold text-center text-md-start">Discover, Borrow, Read: Boipustok Library Online! <br>
       Unlock the Gateway to Endless Stories. <br> Unleash Your Imagination with Every Borrow.
     </p>
-    <p class="fw-bold text-center text-md-start"><a class="btn btn-outline-primary" href="{% url 'signup' %}">Signup
-        Now!</a></p>
+    {% if request.user.is_authenticated %}
+    {% else %}
+    <p class="fw-bold text-center text-md-start"><a class="btn btn-outline-primary" href="{% url 'signup' %}">Signup Now!</a></p>
+    {% endif %}
   </div>
 </div>
 

@@ -23,7 +23,7 @@ class UserRegistrationView(FormView):
         return super().form_valid(form)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['type'] = 'Registration'
+        context['type'] = 'Signup'
         return context
 
 class UserLoginView(LoginView):
@@ -43,6 +43,7 @@ class UserLoginView(LoginView):
     
 class UserLogoutView(View):
     def get(self, request):
+        messages.success(self.request, 'Successfully logged out!')
         logout(request)
         return redirect('home')
 

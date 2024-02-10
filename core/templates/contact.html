@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
 
-{% block head_title %}Boipustok Library{% endblock %}
+{% block head_title %}Contact - Boipustok Library{% endblock %}
 
 {% block content %}
 {% load static %}
-{% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-block alert-success"> <ul class="m-0"> <li>{{message}}</li> </ul> </div>
-    {% endfor %}
-{% endif %}
 
 <div class="container d-flex flex-column flex-md-row justify-content-center align-items-center my-3">
     <img style="width: 350px;" class="rounded rounded-5 me-md-5" src="{% static 'img/Munna.jpg' %}" alt="">

@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+{% block head_title %}{{type}} - Boipustok Library{% endblock %}
 {% load crispy_forms_tags %}
 
 {% block content %}
-<h1 class="text-center my-5">{{type}} Now!</h1>
-<div class="mx-auto mb-5" style="max-width: 600px;">
-    <form style="margin-bottom: 200px;" action="" method="post">
-        {% csrf_token %}
-        {{form | crispy}}
-        
-        <button class="btn btn-success">Submit</button>
-    </form>
+<div class="container mx-auto border border-3 shadow-lg">
+    <h4 class="text-center my-5 bg-success p-2 rounded text-white">{{type}} Now!</h4>
+    <div class="mx-auto mb-5" style="max-width: 600px;">
+        <form style="margin-bottom: 200px;" action="" method="post">
+            {% csrf_token %}
+            {{form | crispy}}
+
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
