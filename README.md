@@ -18,4 +18,5 @@ This app is the core of this project. All the basic templates rendered from here
 6. host: on-render
 
 # live: https://boipustok-library.onrender.com/
+NB: You may need to wait upto 1minute to render live link!
 
